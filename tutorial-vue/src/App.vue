@@ -8,50 +8,47 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+        <formulario-persona @add-persona="agregarPersona"/>
         <!-- Inclusion del componente "TablaPersonas" -->
         <tabla-personas v-bind:personas="personas"/>
       </div>
     </div>
   </div>
 </template>
+    
 <script>
-  // Importacion del componente "TablaPersonas"
-  import TablaPersonas from '@/components/TablaPersonas.vue'
+  // Import the ref function from the Vue library
   import { ref } from 'vue';
-  // Definicion del componente principal
+  import TablaPersonas from '@/components/TablaPersonas.vue'
+  import FormularioPersona from '@/components/FormularioPersona.vue'
+
+  // Define the component
   export default {
     // Nombre del componente principal
     name: 'app',
     // Registro de componentes utilizados en este componente principal
     components: {
         TablaPersonas,
+        FormularioPersona,
       },
-    // Configuracion del componente usando el nuevo sistema "setup"
+      // The setup function is part of the Vue 3 Composition API
     setup() {
-      // Declaracion de una variable reactiva "personas" usando "ref"
-      const personas = ref([
-        {
-          id: 1,
-          nombre: 'Jon',
-          apellido: 'Nieve',
-          email: 'jon@email.com',
-        },
-        {
-          id: 2,
-          nombre: 'Tyrion',
-          apellido: 'Lannister',
-          email: 'tyrion@email.com',
-        },
-        {
-          id: 3,
-          nombre: 'Daenerys',
-          apellido: 'Targaryen',
-          email: 'daenerys@email.com',
-        },
-      ]);
-      // Retorno de las variables o funciones que el componente principal va a exponer
+      // Assuming personas is a ref object initialized as an empty array
+      const personas = ref([]);
+      // Define a function called agregarPersona that adds a new persona to the personas array
+      const agregarPersona = (persona) => {
+          // Update the value of personas by creating a new array with existing values and adding the new persona
+          let id = 0;
+
+          if (personas.value.length > 0) {
+            id = personas.value[personas.value.length - 1].id + 1;
+          }
+          personas.value = [...personas.value, persona];
+      };
+      // Return the reactive variable personas and the function agregarPersona
       return {
         personas,
+        agregarPersona,
       };
     },
   };
