@@ -10,7 +10,7 @@
       <div class="col-md-12">
         <formulario-persona @add-persona="agregarPersona"/>
         <!-- Inclusion del componente "TablaPersonas" -->
-        <tabla-personas v-bind:personas="personas"/>
+        <tabla-personas :personas="personas" @delete-persona="eliminarPersona" @actualizar-persona="actualizarPersona" />
       </div>
     </div>
   </div>
@@ -45,10 +45,29 @@
           }
           personas.value = [...personas.value, persona];
       };
+      const eliminarPersona = (id) => {
+        try {
+          personas.value = personas.value.filter(u => u.id !== id);
+        }
+        catch(error) {
+          console.error(error);
+        }
+      };
+      const actualizarPersona = (id, personaActualizada) => {
+        try {
+          personas.value = personas.value.map(persona =>
+          persona.id === id ? personaActualizada : persona);
+        }
+        catch(error){
+          console.error(error);
+        }
+      };
       // Return the reactive variable personas and the function agregarPersona
       return {
         personas,
         agregarPersona,
+        eliminarPersona,
+        actualizarPersona
       };
     },
   };
