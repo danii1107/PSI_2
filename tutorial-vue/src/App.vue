@@ -1,6 +1,9 @@
 <!-- App.vue -->
 <template>
-  <div id="app" class="container">
+  <div
+    id="app"
+    class="container"
+  >
     <div class="row">
       <div class="col-md-12">
         <h1>Personas</h1>
@@ -8,9 +11,13 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <formulario-persona @add-persona="agregarPersona"/>
+        <formulario-persona @add-persona="agregarPersona" />
         <!-- Inclusion del componente "TablaPersonas" -->
-        <tabla-personas :personas="personas" @delete-persona="eliminarPersona" @actualizar-persona="actualizarPersona" />
+        <tabla-personas
+          :personas="personas"
+          @delete-persona="eliminarPersona"
+          @actualizar-persona="actualizarPersona"
+        />
       </div>
     </div>
   </div>
@@ -24,8 +31,8 @@
 
   // Define the component
   export default {
-    // Nombre del componente principal
-    name: 'app',
+    // name del componente principal
+    name: 'App',
     // Registro de componentes utilizados en este componente principal
     components: {
         TablaPersonas,
@@ -34,7 +41,26 @@
       // The setup function is part of the Vue 3 Composition API
     setup() {
       // Assuming personas is a ref object initialized as an empty array
-      const personas = ref([]);
+      const personas = ref([
+        {
+          id: 1,
+          name: 'Jon',
+          surname: 'Nieve',
+          email: 'jon@email.com',
+        },
+        {
+          id: 2,
+          name: 'Tyrion',
+          surname: 'Lannister',
+          email: 'tyrion@email.com',
+        },
+        {
+          id: 3,
+          name: 'Daenerys',
+          surname: 'Targaryen',
+          email: 'daenerys@email.com',
+        },
+      ]);
       // Define a function called agregarPersona that adds a new persona to the personas array
       const agregarPersona = (persona) => {
           // Update the value of personas by creating a new array with existing values and adding the new persona
