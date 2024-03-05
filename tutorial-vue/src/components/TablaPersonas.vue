@@ -26,24 +26,24 @@
             <td v-if="editando === persona.id">
               <input
                 id="persona.name"
-                v-model="persona.name"
+                v-model="persona.nombre"
                 type="text"
                 class="form-control"
                 data-cy="persona-name"
               >
             </td>
             <td v-else>
-              {{ persona.name }}
+              {{ persona.nombre }}
             </td>
             <td v-if="editando === persona.id">
               <input
-                v-model="persona.surname"
+                v-model="persona.apellido"
                 type="text"
                 class="form-control"
               >
             </td>
             <td v-else>
-              {{ persona.surname }}
+              {{ persona.apellido }}
             </td>
             <td v-if="editando === persona.id">
               <input
@@ -118,7 +118,7 @@
             };
 
             const guardarPersona = (persona) => {
-                if (!persona.name.length || !persona.surname.length || !persona.email.length) {
+                if (!persona.nombre.length || !persona.apellido.length || !persona.email.length) {
                     return;
                 }
                 ctx.emit('actualizar-persona', persona.id, persona);

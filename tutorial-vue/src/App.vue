@@ -24,79 +24,79 @@
 </template>
     
 <script>
-  // Import the ref function from the Vue library
-  import { ref } from 'vue';
-  import TablaPersonas from '@/components/TablaPersonas.vue'
-  import FormularioPersona from '@/components/FormularioPersona.vue'
+import TablaPersonas from '@/components/TablaPersonas.vue';
+import FormularioPersona from '@/components/FormularioPersona.vue';
+import { ref, onMounted } from 'vue';
 
-  // Define the component
-  export default {
-    // name del componente principal
-    name: 'App',
-    // Registro de componentes utilizados en este componente principal
-    components: {
-        TablaPersonas,
-        FormularioPersona,
-      },
-      // The setup function is part of the Vue 3 Composition API
-    setup() {
-      // Assuming personas is a ref object initialized as an empty array
-      const personas = ref([
-        {
-          id: 1,
-          name: 'Jon',
-          surname: 'Nieve',
-          email: 'jon@email.com',
-        },
-        {
-          id: 2,
-          name: 'Tyrion',
-          surname: 'Lannister',
-          email: 'tyrion@email.com',
-        },
-        {
-          id: 3,
-          name: 'Daenerys',
-          surname: 'Targaryen',
-          email: 'daenerys@email.com',
-        },
-      ]);
-      // Define a function called agregarPersona that adds a new persona to the personas array
-      const agregarPersona = (persona) => {
-          // Update the value of personas by creating a new array with existing values and adding the new persona
-          let id = 0;
+export default {
+  name: 'App',
+  components: {
+    TablaPersonas,
+    FormularioPersona,
+  },
+  setup() {
+    const personas = ref([]);
 
-          if (personas.value.length > 0) {
-            id = personas.value[personas.value.length - 1].id + 1;
-          }
-          personas.value = [...personas.value, persona];
-      };
-      const eliminarPersona = (id) => {
-        try {
-          personas.value = personas.value.filter(u => u.id !== id);
-        }
-        catch(error) {
-          console.error(error);
-        }
-      };
-      const actualizarPersona = (id, personaActualizada) => {
-        try {
-          personas.value = personas.value.map(persona =>
-          persona.id === id ? personaActualizada : persona);
-        }
-        catch(error){
-          console.error(error);
-        }
-      };
-      // Return the reactive variable personas and the function agregarPersona
-      return {
-        personas,
-        agregarPersona,
-        eliminarPersona,
-        actualizarPersona
-      };
-    },
-  };
+    const listadoPersonas = async () => {
+      try {
+        const response = await fetch('https://my-json-server.typicode.com/rmarabini/people/personas/');
+        personas.value = await response.json();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const agregarPersona = async (persona) => {
+      try {
+        const response = await fetch('https://my-json-server.typicode.com/rmarabini/people/personas/', {
+          method: 'POST',
+          body: JSON.stringify(persona),
+          headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        });
+        const personaCreada = await response.json();
+        personas.value = [...personas.value, personaCreada];
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const actualizarPersona = async (id, personaActualizada) => {
+      try {
+        const response = await fetch(`https://my-json-server.typicode.com/rmarabini/people/personas/${personaActualizada.id}/`, {
+          method: 'PUT',
+          body: JSON.stringify(personaActualizada),
+          headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        });
+        const personaActualizadaJS = await response.json();
+        personas.value = personas.value.map(u => (u.id === personaActualizada.id ? personaActualizadaJS : u));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const eliminarPersona = async (persona_id) => {
+      try {
+        await fetch(`https://my-json-server.typicode.com/rmarabini/people/personas/${persona_id}/`, {
+          method: "DELETE"
+        });
+        personas.value = personas.value.filter(u => u.id !== persona_id);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    onMounted(() => {
+      listadoPersonas();
+    });
+
+    return {
+      personas,
+      agregarPersona,
+      eliminarPersona,
+      actualizarPersona,
+    };
+  },
+};
 </script>
 <style>
 /* Estilos globales para todos los elementos button en la aplicacion */
