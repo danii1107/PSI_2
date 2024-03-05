@@ -80,7 +80,8 @@
                 &#x1F58A; Editar
               </button>
               <button
-                class="btn btn-danger ml-2"
+                class="btn btn-danger"
+                data-cy="delete-button"
                 @click="$emit('delete-persona', persona.id)"
               >
                 &#x1F5D1; Eliminar

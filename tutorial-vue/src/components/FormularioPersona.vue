@@ -47,17 +47,15 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <div class="form-group">
-              <button
-                data-cy="add-button"
-                class="btn btn-primary"
-              >
-                Agnadir persona
-              </button>
-            </div>
+            <div class="form-group"></div>
           </div>
+          <br>
+          <div><button data-cy="add-button" class="btn btn-primary">
+                Agnadir persona
+              </button></div>
         </div>
       </div>
+      <br>
       <div class="container">
         <div class="row">
           <div class="col-md-12">
