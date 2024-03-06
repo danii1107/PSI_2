@@ -8,7 +8,7 @@
               <label>name</label>
               <input
                 ref="name"
-                v-model="persona.name"
+                v-model="persona.nombre"
                 data-cy="name"
                 type="text"
                 class="form-control"
@@ -22,7 +22,7 @@
             <div class="form-group">
               <label>surname</label>
               <input
-                v-model="persona.surname"
+                v-model="persona.apellido"
                 data-cy="surname"
                 type="text"
                 class="form-control"
@@ -89,18 +89,18 @@ export default {
             correcto: false,
             error: false,
             persona: {
-                name: "",
-                surname: "",
+                nombre: "",
+                apellido: "",
                 email: "",
             },
         };
     },
     computed: {
         nameInvalido() {
-            return this.persona.name.length < 1;
+            return this.persona.nombre.length < 1;
         },
         surnameInvalido() {
-            return this.persona.surname.length < 1;
+            return this.persona.apellido.length < 1;
         },
         emailInvalido() {
             return this.persona.email.length < 1;
@@ -122,8 +122,8 @@ export default {
             this.procesando = false;
             // Restablecemos el valor de la variables
             this.persona = {
-                name: "",
-                surname: "",
+                nombre: "",
+                apellido: "",
                 email: "",
             };
         },

@@ -1,6 +1,3 @@
-node_modules/
-*.json
-
 # Logs
 logs
 *.log
@@ -17,12 +14,11 @@ dist-ssr
 coverage
 *.local
 
-/cypress/
 /cypress/videos/
 /cypress/screenshots/
 
 # Editor directories and files
-.vscode
+.vscode/*
 !.vscode/extensions.json
 .idea
 *.suo
@@ -30,7 +26,3 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-
-__pycache__/
-db.sqlite3
-*.pyc
