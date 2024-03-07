@@ -112,7 +112,7 @@ export default {
             return this.persona.email.length < 1;
         },
         validarEmail() {
-          const re = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
           return !re.test(this.persona.email);
         },
     },
