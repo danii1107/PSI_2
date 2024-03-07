@@ -35,13 +35,13 @@
             <div class="form-group">
               <label>Email</label>
               <input
-                v-model="persona.email"
-                data-cy="email"
-                type="email"
-                class="form-control"
-                :class="{ 'is-invalid': procesando && emailInvalido }"
-                @focus="resetEstado"
-              >
+              v-model="persona.email"
+              data-cy="email"
+              type="text" 
+              class="form-control"
+              :class="{ 'is-invalid': procesando && (emailInvalido || emailInvalidoaux)}"
+              @focus="resetEstado"
+            >
             </div>
           </div>
         </div>
@@ -93,6 +93,7 @@ export default {
             procesando: false,
             correcto: false,
             error: false,
+            emailInvalidoaux: false,
             persona: {
                 nombre: "",
                 apellido: "",
@@ -110,6 +111,10 @@ export default {
         emailInvalido() {
             return this.persona.email.length < 1;
         },
+        validarEmail() {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/;
+          return !re.test(this.persona.email);
+        },
     },
     methods: {
         enviarFormulario() {
@@ -120,11 +125,20 @@ export default {
                 this.error = true;
                 return;
             }
+
+            if (!this.emailInvalido) {
+                if (this.validarEmail) {
+                    this.emailInvalidoaux = true;
+                    return;
+                }
+            }
+
             this.$emit('add-persona', this.persona);
             this.$refs.name.focus();
             this.error = false;
             this.correcto = true;
             this.procesando = false;
+            this.emailInvalidoaux = false;
             // Restablecemos el valor de la variables
             this.persona = {
                 nombre: "",
