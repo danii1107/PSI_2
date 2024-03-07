@@ -31,6 +31,7 @@ import TablaPersonas from '@/components/TablaPersonas.vue';
 import FormularioPersona from '@/components/FormularioPersona.vue';
 import { ref, onMounted } from 'vue';
 import { useCounterStore } from '@/stores/counter';
+const myVar = import.meta.env.VITE_DJANGOURL;
 
 
 export default {
@@ -46,7 +47,8 @@ export default {
 
     const listadoPersonas = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/v1/personas/');
+        const response = await fetch(
+          import.meta.env.VITE_DJANGOURL + '/api/v1/personas/');
         personas.value = await response.json();
       } catch (error) {
         console.error(error);
@@ -55,7 +57,8 @@ export default {
 
     const agregarPersona = async (persona) => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/v1/personas/', {
+        const response = await fetch(
+          import.meta.env.VITE_DJANGOURL + '/api/v1/personas/', {
           method: 'POST',
           body: JSON.stringify(persona),
           headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -72,7 +75,8 @@ export default {
 
     const actualizarPersona = async (id, personaActualizada) => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/v1/personas/${personaActualizada.id}/`, {
+        const response = await fetch(
+          import.meta.env.VITE_DJANGOURL + '/api/v1/personas/' + personaActualizada.id + "/", {
           method: 'PUT',
           body: JSON.stringify(personaActualizada),
           headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -86,7 +90,7 @@ export default {
 
     const eliminarPersona = async (persona_id) => {
       try {
-        await fetch(`http://127.0.0.1:8000/api/v1/personas/${persona_id}/`, {
+        await fetch(import.meta.env.VITE_DJANGOURL + '/api/v1/personas/' + persona_id + "/", {
           method: "DELETE"
         });
         personas.value = personas.value.filter(u => u.id !== persona_id);
