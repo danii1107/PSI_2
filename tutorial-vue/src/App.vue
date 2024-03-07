@@ -21,7 +21,7 @@
       </div>
     </div>
     <div>
-    <p>Count is {{ store.count }}</p>
+      <p>Count is {{ store.count }}</p>
     </div>
   </div>
 </template>
@@ -60,9 +60,11 @@ export default {
           body: JSON.stringify(persona),
           headers: { 'Content-type': 'application/json; charset=UTF-8' },
         });
-        const personaCreada = await response.json();
-        personas.value = [...personas.value, personaCreada];
-        store.increment();
+        if(response.ok){
+          const personaCreada = await response.json();
+          personas.value = [...personas.value, personaCreada];
+          store.increment();
+        }
       } catch (error) {
         console.error(error);
       }

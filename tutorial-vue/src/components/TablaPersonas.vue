@@ -29,7 +29,7 @@
                 v-model="persona.nombre"
                 type="text"
                 class="form-control"
-                data-cy="persona-name"
+                data-cy="persona-nombre"
               >
             </td>
             <td v-else>

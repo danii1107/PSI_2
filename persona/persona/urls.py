@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from api import views
 from rest_framework import routers
+from django.views.generic import RedirectView
 
 router = routers.DefaultRouter()
 
@@ -26,6 +27,7 @@ router = routers.DefaultRouter()
 router.register('personas', views.PersonaViewSet)
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='api/v1/', permanent=False)),
     path('api/v1/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
