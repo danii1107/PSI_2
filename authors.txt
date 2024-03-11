@@ -1,0 +1,11 @@
+Enrique Gómez Fernández y Daniel Birsan
+G2321 - PSI-10
+
+Aplicacion Vue.js desplegada en: https://psi-2-xyhi.onrender.com
+API Django desplegada en: https://psi-2-api.onrender.com 
+
+Se pone a su disposicion un .env en la API para exportar todo lo necesario para desplegar localmente.
+El superusuario es creado al ejecutar manage.py superuser y se crea el user: alumnodb , password: alumnodb (si se ha exportado el .env)
+
+La aplicación usa una BBDD en neon-tech si se despliega desde render, de lo contrario, usará la default con Django, al igual que se hizo en la primera entrega.
+BBDD neon: https://console.neon.tech/app/projects/little-hall-03076215
